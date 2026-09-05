@@ -8,46 +8,41 @@
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; background-color: #7f8c8d; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 40px 20px; }
+        body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; background-color: #7f8c8d; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 20px; }
         
-        .worksheet-container { width: 840px; background: #ffffff; border-radius: 4px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); padding: 40px 35px; border: 2px solid #2c3e50; display: flex; flex-direction: column; gap: 14px; }
+        .worksheet-container { width: 840px; background: #ffffff; border-radius: 4px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); padding: 35px 30px; border: 2px solid #2c3e50; display: flex; flex-direction: column; gap: 14px; }
         
-        /* 1. 상단 헤더 & 프로필 영역 */
-        .header-box { border: 2px solid #2c3e50; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; }
+        /* 헤더 & 프로필 영역 */
+        .header-box { border: 2px solid #2c3e50; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; }
         .header-title-box { display: flex; align-items: center; gap: 12px; }
         .header-badge { font-weight: 800; font-size: 22px; color: #2c3e50; background: #ecf0f1; padding: 4px 10px; border-radius: 6px; }
         .header-main-title { font-size: 22px; font-weight: bold; color: #111; border-left: 3px solid #2c3e50; padding-left: 12px; }
         
-        .header-info-box { border: 1.5px solid #2c3e50; padding: 8px 12px; border-radius: 4px; background-color: #fafafa; display: flex; flex-direction: column; gap: 5px; width: 220px; }
-        .info-row { display: grid; grid-template-columns: 1fr auto; align-items: center; font-size: 13.5px; font-weight: bold; color: #2c3e50; gap: 4px; }
-        .info-row-multi { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; font-weight: bold; color: #2c3e50; }
-        .info-row-name { display: grid; grid-template-columns: auto 1fr; align-items: center; font-size: 13.5px; font-weight: bold; color: #2c3e50; gap: 4px; }
-        
-        .info-label { white-space: nowrap; }
-        .info-input { border: none; border-bottom: 2px solid #2c3e50; outline: none; text-align: center; font-size: 13.5px; font-weight: bold; font-family: inherit; background: transparent; padding: 1px 0; width: 100%; }
+        .header-info-box { border: 1.5px solid #2c3e50; padding: 8px 12px; border-radius: 4px; background-color: #fafafa; display: flex; flex-direction: column; gap: 6px; width: 230px; }
+        .info-row { display: flex; justify-content: flex-end; align-items: center; font-size: 13.5px; font-weight: bold; color: #2c3e50; gap: 4px; }
+        .info-input { border: none; border-bottom: 2px solid #2c3e50; outline: none; text-align: center; font-size: 13.5px; font-weight: bold; font-family: inherit; background: transparent; padding: 1px 0; }
 
         .instruction-title { font-size: 16px; font-weight: bold; color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; margin-top: 2px; }
 
         /* 보기 란 */
-        .example-box { border: 2px solid #2c3e50; border-radius: 4px; overflow: hidden; background-color: #fff; margin-bottom: 4px; }
-        .example-header { background-color: #34495e; color: #ffffff; padding: 3px 0; text-align: center; font-weight: bold; font-size: 14.5px; letter-spacing: 2px; }
-        .example-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 8px; background-color: #f8f9fa; }
-        .example-item { background-color: #ffffff; border: 1.5px solid #bdc3c7; border-radius: 4px; padding: 6px 4px; text-align: center; }
-        .example-item-title { font-weight: bold; color: #2980b9; margin-bottom: 2px; font-size: 14px; }
-        .example-item-desc { font-size: 11.5px; color: #444; line-height: 1.2; word-break: keep-all; font-weight: 500; }
+        .example-box { border: 2px solid #2c3e50; border-radius: 4px; overflow: hidden; background-color: #fff; margin-bottom: 2px; }
+        .example-header { background-color: #34495e; color: #ffffff; padding: 4px 0; text-align: center; font-weight: bold; font-size: 15px; letter-spacing: 3px; }
+        .example-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 8px; background-color: #f8f9fa; }
+        .example-item { background-color: #ffffff; border: 1.5px solid #bdc3c7; border-radius: 4px; padding: 8px 4px; text-align: center; }
+        .example-item-title { font-weight: bold; color: #2980b9; margin-bottom: 3px; font-size: 14px; }
+        .example-item-desc { font-size: 11.5px; color: #444; line-height: 1.25; word-break: keep-all; font-weight: 500; }
 
         /* 메인 활동 표 */
         .activity-table { width: 100%; border-collapse: collapse; border: 2px solid #2c3e50; table-layout: fixed; }
         .activity-table th, .activity-table td { border: 1.5px solid #2c3e50; vertical-align: middle; text-align: center; }
-        .activity-table th { background-color: #eaeded; font-size: 16px; font-weight: bold; padding: 8px; color: #2c3e50; }
+        .activity-table th { background-color: #eaeded; font-size: 16px; font-weight: bold; padding: 9px; color: #2c3e50; }
         
-        .example-img-container { width: 100%; padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .example-img-label { margin-top: 6px; font-weight: bold; font-size: 15px; color: #2c3e50; }
+        .example-img-container { width: 100%; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .example-img-label { margin-top: 8px; font-weight: bold; font-size: 15px; color: #2c3e50; }
 
-        .cell-text { font-size: 14.5px; color: #2c3e50; font-weight: bold; padding: 10px; line-height: 1.4; }
-        .cell-text.left { text-align: left; padding-left: 14px; }
+        .cell-text-bullet { font-size: 14.5px; color: #2c3e50; font-weight: bold; padding: 12px 16px; text-align: left; line-height: 1.8; }
 
-        /* 학생 직접 작성 칸 */
+        /* 학생 작성 영역 */
         .drawing-cell { padding: 8px; vertical-align: top; }
         .canvas-toolbar { display: flex; justify-content: center; gap: 4px; margin-bottom: 6px; align-items: center; }
         .toolbar-btn { padding: 3px 8px; font-size: 11px; font-weight: bold; border: 1.5px solid #7f8c8d; background-color: #fff; border-radius: 4px; cursor: pointer; }
@@ -56,11 +51,11 @@
         
         canvas { border: 2px dashed #bdc3c7; background-color: #fff; cursor: crosshair; border-radius: 4px; touch-action: none; }
 
-        .text-input-area { width: 100%; height: 100%; min-height: 70px; border: none; outline: none; resize: none; font-family: inherit; font-size: 14.5px; line-height: 1.4; padding: 8px; background: transparent; text-align: justify; word-break: break-all; }
-        .text-input-area::placeholder { color: #bdc3c7; font-style: italic; font-size: 13px; text-align: left; }
+        .text-input-area { width: 100%; height: 100%; min-height: 170px; border: none; outline: none; resize: none; font-family: inherit; font-size: 14.5px; line-height: 1.6; padding: 12px; background: transparent; word-break: break-all; }
+        .text-input-area::placeholder { color: #bdc3c7; font-style: italic; font-size: 13.5px; line-height: 1.5; }
 
-        /* 하단 제출 버튼 */
-        .action-bar { margin-top: 8px; display: flex; justify-content: center; gap: 12px; }
+        /* 제출 버튼 */
+        .action-bar { margin-top: 10px; display: flex; justify-content: center; }
         .submit-btn { background-color: #27ae60; color: white; border: none; padding: 12px 36px; font-size: 18px; font-weight: bold; border-radius: 6px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .submit-btn:hover { background-color: #219150; }
         .submit-btn:disabled { background-color: #95a5a6; cursor: not-allowed; }
@@ -69,6 +64,7 @@
 <body>
 
 <div class="worksheet-container" id="capture-area">
+    <!-- 헤더 -->
     <div class="header-box">
         <div class="header-title-box">
             <span class="header-badge">1차시</span>
@@ -76,18 +72,18 @@
         </div>
         <div class="header-info-box">
             <div class="info-row">
-                <input type="text" id="school-input" class="info-input">
-                <span class="info-label">초등학교</span>
+                <input type="text" id="school-input" class="info-input" style="width: 100px;">
+                <span>초등학교</span>
             </div>
-            <div class="info-row-multi">
-                <input type="text" id="grade-input" class="info-input" style="width: 50px;">
-                <span class="info-label">학년</span>
-                <input type="text" id="class-input" class="info-input" style="width: 50px;">
-                <span class="info-label">반</span>
+            <div class="info-row">
+                <input type="text" id="grade-input" class="info-input" style="width: 40px;">
+                <span>학년</span>
+                <input type="text" id="class-input" class="info-input" style="width: 40px; margin-left: 6px;">
+                <span>반</span>
             </div>
-            <div class="info-row-name">
-                <span class="info-label">이름 :</span>
-                <input type="text" id="name-input" class="info-input">
+            <div class="info-row" style="justify-content: flex-start;">
+                <span>이름 :</span>
+                <input type="text" id="name-input" class="info-input" style="width: 130px; margin-left: 4px;">
             </div>
         </div>
     </div>
@@ -96,6 +92,7 @@
         생활 속에서 사용하고 있는 사물에 인공지능 기술을 적용한다면 어떤 점이 편리할까요?
     </div>
 
+    <!-- 보기 -->
     <div class="example-box">
         <div class="example-header">보 기</div>
         <div class="example-content">
@@ -118,48 +115,61 @@
         </div>
     </div>
 
-    <!-- 활동 표 -->
+    <!-- 활동 표 (왼쪽 양식과 100% 동일한 셀 구조) -->
     <table class="activity-table">
         <thead>
             <tr>
-                <th style="width: 30%;">생활 속 사물</th>
+                <th style="width: 32%;">생활 속 사물</th>
                 <th style="width: 28%;">적용할 인공지능 기술</th>
-                <th style="width: 42%;">편리한 점</th>
+                <th style="width: 40%;">편리한 점</th>
             </tr>
         </thead>
         <tbody>
+            <!-- 예시 행 -->
             <tr>
-                <td rowspan="2">
+                <td>
                     <div class="example-img-container">
-                        <img id="example-img" src="" alt="책상과 걸상 예시" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'90\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23eee\'/><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23aaa\' font-size=\'14\'>책상과 걸상</text></svg>'">
+                        <!-- 책상과 걸상 SVG 아이콘 (외부 이미지 불러오기 오류 방지) -->
+                        <svg width="90" height="75" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 책상 -->
+                            <rect x="10" y="25" width="45" height="6" fill="#7f8c8d" rx="1"/>
+                            <path d="M15 31V70M50 31V70" stroke="#34495e" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M15 50H50" stroke="#bdc3c7" stroke-width="2"/>
+                            <!-- 의자 -->
+                            <path d="M65 40C65 35 68 25 78 25C82 25 83 28 83 32V45H63L65 40Z" fill="#2c3e50"/>
+                            <rect x="62" y="45" width="24" height="5" fill="#7f8c8d" rx="1"/>
+                            <path d="M66 50V75M82 50V75" stroke="#34495e" stroke-width="3.5" stroke-linecap="round"/>
+                            <path d="M66 62H82" stroke="#bdc3c7" stroke-width="2"/>
+                        </svg>
                         <div class="example-img-label">책상과 걸상</div>
                     </div>
                 </td>
-                <td class="cell-text">이미지 인식</td>
-                <td class="cell-text left">내가 앉으면 높이를 조절해 준다.</td>
-            </tr>
-            <tr>
-                <td class="cell-text">문자 인식</td>
-                <td class="cell-text left">책상 위에 놓인 책을 펼치면 읽어 준다.</td>
+                <td style="font-size: 15px; font-weight: bold; color: #2c3e50; line-height: 1.8;">
+                    이미지 인식<br>문자 인식
+                </td>
+                <td class="cell-text-bullet">
+                    • 내가 앉으면 높이를 조절해 준다.<br>
+                    • 책상 위에 놓인 책을 펼치면 읽어 준다.
+                </td>
             </tr>
 
-            <!-- 학생 직접 작성 칸 -->
+            <!-- 학생 작성 행 -->
             <tr>
-                <td rowspan="2" class="drawing-cell">
+                <td class="drawing-cell">
                     <div class="canvas-toolbar">
                         <input type="color" id="pen-color" class="color-picker" value="#000000">
                         <button class="toolbar-btn active" id="pen-btn" onclick="setMode('pen')">✏️ 펜</button>
                         <button class="toolbar-btn" id="eraser-btn" onclick="setMode('eraser')">🧹 지우개</button>
-                        <button class="toolbar-btn" onclick="clearCanvas()">🗑️ 지우기</button>
+                        <button class="toolbar-btn" onclick="clearCanvas()">🗑️ 전체 지우기</button>
                     </div>
-                    <canvas id="draw-canvas" width="220" height="150"></canvas>
+                    <canvas id="draw-canvas" width="235" height="170"></canvas>
                 </td>
-                <td style="height: 80px;"><textarea id="tech1" class="text-input-area" placeholder="기술 1 입력"></textarea></td>
-                <td><textarea id="feature1" class="text-input-area" placeholder="편리한 점 1 입력"></textarea></td>
-            </tr>
-            <tr>
-                <td style="height: 80px;"><textarea id="tech2" class="text-input-area" placeholder="기술 2 입력"></textarea></td>
-                <td><textarea id="feature2" class="text-input-area" placeholder="편리한 점 2 입력"></textarea></td>
+                <td>
+                    <textarea id="tech-input" class="text-input-area" placeholder="적용할 인공지능 기술을 적어보세요.&#10;&#10;(예: 음성 인식)"></textarea>
+                </td>
+                <td>
+                    <textarea id="feature-input" class="text-input-area" placeholder="인공지능 기술이 적용되면 어떤 점이 편리해지는지 자유롭게 적어보세요."></textarea>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -170,7 +180,7 @@
 </div>
 
 <script>
-    // ⚠️ 아래 큰따옴표("") 사이에 복사하신 '웹 앱 URL 주소'를 붙여넣어 주세요!
+    // 기존 구글 앱스 스크립트 웹 앱 URL (자동 유지)
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoEwuQqPz2az17Kn1SszUqEG1BxPHS8-S4A3vZ_a4MxxGnfrC4DoI7tvUGajjUlIi2sA/exec";
 
     const canvas = document.getElementById('draw-canvas');
@@ -221,17 +231,11 @@
             return;
         }
 
-        if (GOOGLE_SCRIPT_URL === "여기에_구글_웹앱_URL을_붙여넣으세요" || !GOOGLE_SCRIPT_URL) {
-            alert("구글 연동 URL이 설정되지 않았습니다.");
-            return;
-        }
-
         const btn = document.getElementById('submit-btn');
         btn.disabled = true;
         btn.innerText = "⏳ 선생님께 제출 중...";
 
         try {
-            // 학생이 작성한 전체 활동지 화면 캡처
             const target = document.getElementById('capture-area');
             const capturedCanvas = await html2canvas(target, { scale: 1.5, useCORS: true });
             const imageBase64 = capturedCanvas.toDataURL('image/png').split(',')[1];
