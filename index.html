@@ -10,7 +10,20 @@
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; background-color: #7f8c8d; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 20px; }
         
-        .worksheet-container { width: 840px; background: #ffffff; border-radius: 4px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); padding: 35px 30px; border: 2px solid #2c3e50; display: flex; flex-direction: column; gap: 14px; }
+        /* A4 세로 크기 설정 (800px x 1130px) */
+        .worksheet-container { 
+            width: 800px; 
+            height: 1130px; 
+            background: #ffffff; 
+            border-radius: 4px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
+            padding: 35px 30px; 
+            border: 2px solid #2c3e50; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 14px; 
+            box-sizing: border-box;
+        }
         
         /* 헤더 & 프로필 영역 */
         .header-box { border: 2px solid #2c3e50; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; }
@@ -33,7 +46,7 @@
         .example-item-desc { font-size: 11.5px; color: #444; line-height: 1.25; word-break: keep-all; font-weight: 500; }
 
         /* 메인 활동 표 */
-        .activity-table { width: 100%; border-collapse: collapse; border: 2px solid #2c3e50; table-layout: fixed; }
+        .activity-table { width: 100%; border-collapse: collapse; border: 2px solid #2c3e50; table-layout: fixed; flex: 1; }
         .activity-table th, .activity-table td { border: 1.5px solid #2c3e50; vertical-align: middle; text-align: center; }
         .activity-table th { background-color: #eaeded; font-size: 16px; font-weight: bold; padding: 9px; color: #2c3e50; }
         
@@ -115,7 +128,7 @@
         </div>
     </div>
 
-    <!-- 활동 표 (왼쪽 양식과 100% 동일한 셀 구조) -->
+    <!-- 활동 표 -->
     <table class="activity-table">
         <thead>
             <tr>
@@ -129,13 +142,10 @@
             <tr>
                 <td>
                     <div class="example-img-container">
-                        <!-- 책상과 걸상 SVG 아이콘 (외부 이미지 불러오기 오류 방지) -->
                         <svg width="90" height="75" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- 책상 -->
                             <rect x="10" y="25" width="45" height="6" fill="#7f8c8d" rx="1"/>
                             <path d="M15 31V70M50 31V70" stroke="#34495e" stroke-width="3.5" stroke-linecap="round"/>
                             <path d="M15 50H50" stroke="#bdc3c7" stroke-width="2"/>
-                            <!-- 의자 -->
                             <path d="M65 40C65 35 68 25 78 25C82 25 83 28 83 32V45H63L65 40Z" fill="#2c3e50"/>
                             <rect x="62" y="45" width="24" height="5" fill="#7f8c8d" rx="1"/>
                             <path d="M66 50V75M82 50V75" stroke="#34495e" stroke-width="3.5" stroke-linecap="round"/>
@@ -180,7 +190,7 @@
 </div>
 
 <script>
-    // 기존 구글 앱스 스크립트 웹 앱 URL (자동 유지)
+    // ⚠️ 아래 큰따옴표("") 사이에 본인의 Google Apps Script URL을 넣으세요!
     const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyoEwuQqPz2az17Kn1SszUqEG1BxPHS8-S4A3vZ_a4MxxGnfrC4DoI7tvUGajjUlIi2sA/exec";
 
     const canvas = document.getElementById('draw-canvas');
