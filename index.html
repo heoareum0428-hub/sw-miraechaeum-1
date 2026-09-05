@@ -4,548 +4,322 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1차시 | 우리가 만들고 싶은 인공지능</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body { font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; background-color: #52616b; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 30px 10px; }
         
-        body { 
-            font-family: 'Malgun Gothic', '맑은 고딕', sans-serif; 
-            background-color: #525659; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            min-height: 100vh; 
-            padding: 20px; 
-        }
+        .worksheet-container { width: 800px; background: #ffffff; border-radius: 4px; box-shadow: 0 8px 25px rgba(0,0,0,0.3); padding: 35px 35px; border: 2px solid #2c3e50; display: flex; flex-direction: column; gap: 14px; }
         
-        /* A4 규격 세로 비율 컨테이너 */
-        .worksheet-container { 
-            width: 794px; 
-            height: 1123px; 
-            background: #ffffff; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3); 
-            padding: 35px 35px 25px 35px; 
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+        /* 상단 프로필 및 헤더 */
+        .header-box { border: 2px solid #2c3e50; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; background-color: #ffffff; }
+        .header-title-box { display: flex; align-items: center; gap: 12px; }
+        .header-badge { font-weight: 800; font-size: 22px; color: #2c3e50; background: #ecf0f1; padding: 4px 10px; border-radius: 6px; }
+        .header-main-title { font-size: 22px; font-weight: bold; color: #111; border-left: 3px solid #2c3e50; padding-left: 12px; }
         
-        /* 1. 최상단 테두리 박스 (헤더) */
-        .header-outer-box {
-            border: 2px solid #2b3a4a;
-            padding: 12px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-            background-color: #fff;
-        }
+        .header-info-box { border: 1.5px solid #2c3e50; padding: 8px 12px; border-radius: 4px; background-color: #fafafa; display: flex; flex-direction: column; gap: 5px; width: 220px; }
+        .info-row { display: flex; align-items: center; justify-content: flex-end; font-size: 13px; font-weight: bold; color: #2c3e50; gap: 4px; }
+        .info-input { border: none; border-bottom: 1.5px solid #2c3e50; outline: none; text-align: center; font-size: 13px; font-weight: bold; font-family: inherit; background: transparent; padding: 1px 0; }
 
-        .header-title-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            white-space: nowrap; /* 절대 줄바꿈 되지 않도록 지정 */
-        }
+        .instruction-title { font-size: 16px; font-weight: bold; color: #2c3e50; border-left: 5px solid #3498db; padding-left: 10px; }
 
-        .badge-1chasi {
-            background-color: #f1f3f5;
-            color: #2c3e50;
-            font-size: 20px;
-            font-weight: 800;
-            padding: 5px 14px;
-            border-radius: 8px;
-            border: 1px solid #ced4da;
-            white-space: nowrap;
-        }
+        /* 보기 란 */
+        .example-box { border: 2px solid #2c3e50; border-radius: 6px; overflow: hidden; background-color: #fff; }
+        .example-header { background-color: #34495e; color: #ffffff; padding: 3px 0; text-align: center; font-weight: bold; font-size: 14px; letter-spacing: 2px; }
+        .example-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 8px; background-color: #f8f9fa; }
+        .example-item { background-color: #ffffff; border: 1.5px solid #bdc3c7; border-radius: 6px; padding: 6px 4px; text-align: center; }
+        .example-item-title { font-weight: bold; color: #2980b9; margin-bottom: 2px; font-size: 14px; }
+        .example-item-desc { font-size: 11px; color: #444; line-height: 1.3; font-weight: 500; word-break: keep-all; }
 
-        .header-main-title {
-            font-size: 23px;
-            font-weight: 800;
-            color: #1a252f;
-            border-left: 2px solid #bdc3c7;
-            padding-left: 14px;
-            white-space: nowrap;
-        }
+        /* 메인 활동 표 */
+        .activity-table { width: 100%; border-collapse: collapse; border: 2px solid #2c3e50; table-layout: fixed; }
+        .activity-table th, .activity-table td { border: 1.5px solid #2c3e50; text-align: center; vertical-align: middle; }
+        .activity-table th { background-color: #eaeded; font-size: 16px; font-weight: bold; padding: 8px; color: #2c3e50; }
+        
+        /* 예시 열 정렬 높이 */
+        .example-row { height: 180px; }
+        .example-row td { padding: 10px; }
+        .example-img-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+        .example-img-container img { max-width: 100px; max-height: 90px; object-fit: contain; }
+        .example-img-label { font-weight: bold; font-size: 14px; color: #2c3e50; }
+        .example-text-tech { font-weight: bold; font-size: 15px; color: #2c3e50; }
+        .example-text-desc { font-size: 13.5px; color: #2c3e50; text-align: left; line-height: 1.6; font-weight: bold; text-align: justify; word-break: keep-all; }
 
-        /* 학생 정보 입력 영역 (수평 일직선 정렬) */
-        .student-info-box {
-            border: 1.5px solid #2b3a4a;
-            border-radius: 3px;
-            padding: 8px 12px;
-            width: 250px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            background-color: #fff;
-        }
+        /* 학생 입력 셀 정렬 (수직/수평 완벽 대칭 구조) */
+        .input-row { height: 320px; }
+        .drawing-cell { padding: 8px; vertical-align: top; }
+        
+        .drawing-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100%; gap: 6px; }
+        
+        /* 툴바 이미지 배치 구조 맞춤 */
+        .canvas-toolbar { display: flex; align-items: center; justify-content: center; gap: 4px; width: 100%; }
+        .color-picker { width: 18px; height: 18px; border: none; cursor: pointer; background: none; margin-right: 2px; }
+        .toolbar-btn { padding: 3px 6px; font-size: 11px; font-weight: bold; border: 1.5px solid #2c3e50; background-color: #fff; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 2px; }
+        .toolbar-btn.active { background-color: #2c3e50; color: #fff; }
 
-        .info-line {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center; /* 밑줄과 글자가 완벽 수평 되도록 일치 */
-            font-size: 13.5px;
-            font-weight: bold;
-            color: #2b3a4a;
-            white-space: nowrap;
-        }
+        canvas { border: 1.5px dashed #bdc3c7; background-color: #fff; cursor: crosshair; border-radius: 4px; touch-action: none; }
 
-        .info-line input {
-            border: none;
-            border-bottom: 1.5px solid #2b3a4a;
-            outline: none;
-            text-align: center;
-            font-size: 13.5px;
-            font-weight: bold;
-            font-family: inherit;
-            background: transparent;
-            padding-bottom: 1px;
-            margin: 0 2px;
-        }
+        .text-cell { padding: 10px; vertical-align: top; }
+        .text-input-area { width: 100%; height: 100%; border: none; outline: none; resize: none; font-family: inherit; font-size: 14.5px; line-height: 1.6; background: transparent; text-align: justify; word-break: break-all; }
+        .text-input-area::placeholder { color: #bdc3c7; font-style: italic; font-size: 13px; text-align: left; }
 
-        /* 2. 안내 지시문 */
-        .instruction-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15.5px;
-            font-weight: bold;
-            color: #1a252f;
-            margin-bottom: 12px;
-            white-space: nowrap;
-        }
-
-        .instruction-bar {
-            width: 4px;
-            height: 16px;
-            background-color: #2980b9;
-        }
-
-        /* 3. 보 기 영역 */
-        .example-container {
-            border: 2px solid #2b3a4a;
-            border-radius: 2px;
-            margin-bottom: 14px;
-        }
-
-        .example-title-bar {
-            background-color: #2c3e50;
-            color: #ffffff;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14.5px;
-            padding: 4px 0;
-            letter-spacing: 6px;
-        }
-
-        .example-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            padding: 10px;
-            background-color: #ffffff;
-        }
-
-        .example-card {
-            border: 1.5px solid #d6dbdf;
-            border-radius: 4px;
-            padding: 10px 6px;
-            text-align: center;
-            background-color: #fff;
-        }
-
-        .example-card-title {
-            color: #2980b9;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .example-card-desc {
-            font-size: 11.5px;
-            color: #566573;
-            line-height: 1.3;
-            word-break: keep-all;
-        }
-
-        /* 4. 활동 표 (Main Table) */
-        .activity-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 2px solid #2b3a4a;
-            table-layout: fixed;
-        }
-
-        .activity-table th {
-            background-color: #eaeded;
-            border: 1.5px solid #2b3a4a;
-            font-size: 15.5px;
-            font-weight: bold;
-            color: #1a252f;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .activity-table td {
-            border: 1.5px solid #2b3a4a;
-            padding: 12px;
-            vertical-align: middle;
-        }
-
-        /* 예시 사물 영역 */
-        .desk-img-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .desk-caption {
-            margin-top: 8px;
-            font-size: 14.5px;
-            font-weight: bold;
-            color: #1a252f;
-        }
-
-        .bullet-list {
-            font-size: 14px;
-            color: #1a252f;
-            font-weight: bold;
-            line-height: 1.8;
-            word-break: keep-all; /* 어색한 위치에서 꺾이지 않도록 처리 */
-            white-space: nowrap;
-        }
-
-        /* 학생 직접 작성 영역 (2행 높이 고정) */
-        .student-row {
-            height: 290px; /* 원본 크기와 동일하게 220px 이상 확보 */
-        }
-
-        .draw-zone {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 8px !important;
-            vertical-align: top !important;
-        }
-
-        /* 원본 학습지와 완벽히 동일한 툴바 디자인 */
-        .draw-toolbar {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 6px;
-            width: 100%;
-            align-items: center;
-        }
-
-        .color-indicator {
-            width: 16px;
-            height: 16px;
-            background-color: #000;
-            border: 1px solid #333;
-            display: inline-block;
-        }
-
-        .tool-btn {
-            border: 1.5px solid #7f8c8d;
-            background: #fff;
-            padding: 4px 8px;
-            font-size: 11.5px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #2c3e50;
-        }
-
-        .tool-btn.active {
-            background-color: #2c3e50;
-            color: #fff;
-            border-color: #2c3e50;
-        }
-
-        canvas {
-            border: 1.5px dashed #bdc3c7;
-            background-color: #fff;
-            cursor: crosshair;
-            touch-action: none;
-            width: 100%;
-            height: 230px;
-            box-sizing: border-box;
-        }
-
-        .input-cell {
-            vertical-align: top !important;
-            padding: 12px !important;
-        }
-
-        /* 입력창 스크롤바 제거 및 세로 전체 채우기 */
-        .input-textarea {
-            width: 100%;
-            height: 100%;
-            min-height: 250px;
-            border: none;
-            outline: none;
-            resize: none;
-            font-family: inherit;
-            font-size: 13.5px;
-            line-height: 1.7;
-            background: transparent;
-            overflow: hidden; /* 스크롤바 완전히 숨김 */
-            color: #2c3e50;
-            box-sizing: border-box;
-        }
-
-        .input-textarea::placeholder {
-            color: #a6acaf;
-            font-style: italic;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        /* 하단 제출 버튼 */
-        .submit-container {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-submit {
-            background-color: #27ae60;
-            color: #ffffff;
-            font-size: 17px;
-            font-weight: bold;
-            padding: 10px 36px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: all 0.2s;
-        }
-
-        .btn-submit:hover { background-color: #219150; }
-        .btn-submit:disabled { background-color: #95a5a6; cursor: not-allowed; }
+        /* 제출 버튼 */
+        .action-bar { display: flex; justify-content: center; margin-top: 5px; }
+        .submit-btn { background-color: #2980b9; color: white; border: none; padding: 12px 40px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: background-color 0.2s; }
+        .submit-btn:hover { background-color: #1f618d; }
     </style>
 </head>
 <body>
 
-<div class="worksheet-container" id="capture-area">
-    
-    <!-- 1. 최상단 영역 -->
-    <div class="header-outer-box">
-        <div class="header-title-group">
-            <span class="badge-1chasi">1차시</span>
+<div class="worksheet-container">
+    <div class="header-box">
+        <div class="header-title-box">
+            <span class="header-badge">1차시</span>
             <span class="header-main-title">우리가 만들고 싶은 인공지능</span>
         </div>
-        <div class="student-info-box">
-            <div class="info-line">
-                <input type="text" id="school-input" style="width: 100px;">
-                <span>초등학교</span>
+        <div class="header-info-box">
+            <div class="info-row">
+                <input type="text" id="school" class="info-input" style="width: 100px;"> <span>초등학교</span>
             </div>
-            <div class="info-line">
-                <input type="text" id="grade-input" style="width: 40px;">
-                <span>학년</span>
-                <input type="text" id="class-input" style="width: 40px; margin-left: 6px;">
-                <span>반</span>
+            <div class="info-row">
+                <input type="text" id="grade" class="info-input" style="width: 35px;"> <span>학년</span>
+                <input type="text" id="classNum" class="info-input" style="width: 35px; margin-left: 5px;"> <span>반</span>
             </div>
-            <div class="info-line" style="justify-content: flex-start;">
+            <div class="info-row">
                 <span>이름 :</span>
-                <input type="text" id="name-input" style="width: 130px; margin-left: 4px;">
+                <input type="text" id="name" class="info-input" style="width: 110px;">
             </div>
         </div>
     </div>
 
-    <!-- 2. 지시문 -->
-    <div class="instruction-section">
-        <div class="instruction-bar"></div>
-        <div>생활 속에서 사용하고 있는 사물에 인공지능 기술을 적용한다면 어떤 점이 편리할까요?</div>
+    <div class="instruction-title">
+        생활 속에서 사용하고 있는 사물에 인공지능 기술을 적용한다면 어떤 점이 편리할까요?
     </div>
 
-    <!-- 3. 보 기 -->
-    <div class="example-container">
-        <div class="example-title-bar">보 기</div>
-        <div class="example-grid">
-            <div class="example-card">
-                <div class="example-card-title">음성 인식</div>
-                <div class="example-card-desc">사람의 목소리나 소리를 듣고 이해하는 기술</div>
+    <div class="example-box">
+        <div class="example-header">보 기</div>
+        <div class="example-content">
+            <div class="example-item">
+                <div class="example-item-title">음성 인식</div>
+                <div class="example-item-desc">사람의 목소리나 소리를 듣고 이해하는 기술</div>
             </div>
-            <div class="example-card">
-                <div class="example-card-title">이미지 인식</div>
-                <div class="example-card-desc">카메라로 사물, 얼굴, 공간을 알아보는 기술</div>
+            <div class="example-item">
+                <div class="example-item-title">이미지 인식</div>
+                <div class="example-item-desc">카메라로 사물, 얼굴, 공간을 알아보는 기술</div>
             </div>
-            <div class="example-card">
-                <div class="example-card-title">문자 인식</div>
-                <div class="example-card-desc">글씨나 기호를 읽고 그 뜻을 파악하는 기술</div>
+            <div class="example-item">
+                <div class="example-item-title">문자 인식</div>
+                <div class="example-item-desc">글씨나 기호를 읽고 그 뜻을 파악하는 기술</div>
             </div>
-            <div class="example-card">
-                <div class="example-card-title">동작 인식</div>
-                <div class="example-card-desc">사람의 몸짓이나 움직임을 감지하는 기술</div>
+            <div class="example-item">
+                <div class="example-item-title">동작 인식</div>
+                <div class="example-item-desc">사람의 몸짓이나 움직임을 감지하는 기술</div>
             </div>
         </div>
     </div>
 
-    <!-- 4. 활동 표 -->
     <table class="activity-table">
         <thead>
             <tr>
-                <th style="width: 32%;">생활 속 사물</th>
-                <th style="width: 25%;">적용할 인공지능 기술</th>
-                <th style="width: 43%;">편리한 점</th>
+                <th style="width: 33%;">생활 속 사물</th>
+                <th style="width: 27%;">적용할 인공지능 기술</th>
+                <th style="width: 40%;">편리한 점</th>
             </tr>
         </thead>
         <tbody>
-            <!-- 예시 행 (1행) -->
-            <tr style="height: 180px;">
-                <td style="text-align: center;">
-                    <div class="desk-img-wrapper">
-                        <!-- 실제 책상/걸상 아이콘 -->
-                        <svg width="95" height="80" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="8" y="22" width="48" height="6" fill="#7f8c8d" rx="1"/>
-                            <path d="M13 28V72M51 28V72" stroke="#34495e" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M13 52H51" stroke="#bdc3c7" stroke-width="2.5"/>
-                            <path d="M66 40C66 33 69 22 80 22C84 22 85 26 85 30V46H64L66 40Z" fill="#2c3e50"/>
-                            <rect x="63" y="46" width="25" height="5" fill="#7f8c8d" rx="1"/>
-                            <path d="M67 51V77M83 51V77" stroke="#34495e" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M67 64H83" stroke="#bdc3c7" stroke-width="2.5"/>
+            <tr class="example-row">
+                <td>
+                    <div class="example-img-container">
+                        <!-- 책상과 걸상 이미지 예시 (svg 렌더링) -->
+                        <svg width="80" height="70" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="25" width="55" height="8" rx="2" fill="#7f8c8d"/>
+                            <rect x="25" y="33" width="5" height="35" fill="#95a5a6"/>
+                            <rect x="65" y="33" width="5" height="35" fill="#95a5a6"/>
+                            <path d="M35 45 L35 20 Q35 15 40 15 L50 15 Q55 15 55 20 L55 45 Z" fill="#34495e"/>
+                            <rect x="40" y="45" width="4" height="25" fill="#2c3e50"/>
+                            <rect x="50" y="45" width="4" height="25" fill="#2c3e50"/>
                         </svg>
-                        <div class="desk-caption">책상과 걸상</div>
+                        <span class="example-img-label">책상과 걸상</span>
                     </div>
                 </td>
-                <td style="text-align: center; font-size: 15px; font-weight: bold; color: #2c3e50; line-height: 1.9;">
-                    이미지 인식<br>문자 인식
+                <td>
+                    <div class="example-text-tech">이미지 인식<br>문자 인식</div>
                 </td>
                 <td>
-                    <div class="bullet-list">
+                    <div class="example-text-desc">
                         • 내가 앉으면 높이를 조절해 준다.<br>
                         • 책상 위에 놓인 책을 펼치면 읽어 준다.
                     </div>
                 </td>
             </tr>
-
-            <!-- 학생 작성 행 (2행 - 원본과 동일한 높이 지정) -->
-            <tr class="student-row">
-                <td class="draw-zone">
-                    <div class="draw-toolbar">
-                        <span class="color-indicator" id="color-box"></span>
-                        <button class="tool-btn active" id="btn-pen" onclick="setMode('pen')">✏️ 펜</button>
-                        <button class="tool-btn" id="btn-eraser" onclick="setMode('eraser')">🧹 지우개</button>
-                        <button class="tool-btn" onclick="clearCanvas()">🗑️ 전체 지우기</button>
+            <tr class="input-row">
+                <td class="drawing-cell">
+                    <div class="drawing-wrapper">
+                        <div class="canvas-toolbar">
+                            <input type="color" class="color-picker" id="colorPicker" value="#000000" onchange="changeColor(this.value)">
+                            <button type="button" class="toolbar-btn pen-btn active" onclick="setMode('pen')">✏️ 펜</button>
+                            <button type="button" class="toolbar-btn eraser-btn" onclick="setMode('eraser')">🧹 지우개</button>
+                            <button type="button" class="toolbar-btn" onclick="clearCanvas()">🗑️ 전체 지우기</button>
+                        </div>
+                        <canvas id="drawingCanvas" width="230" height="250"></canvas>
                     </div>
-                    <canvas id="draw-canvas"></canvas>
                 </td>
-                <td class="input-cell">
-                    <textarea id="tech-input" class="input-textarea" placeholder="적용할 인공지능 기술을 적어보세요.&#10;&#10;(예: 음성 인식)"></textarea>
+                <td class="text-cell">
+                    <textarea id="inputTech" class="text-input-area" placeholder="적용할 인공지능 기술을 적어보세요.&#10;&#10;(예: 음성 인식)"></textarea>
                 </td>
-                <td class="input-cell">
-                    <textarea id="feature-input" class="input-textarea" placeholder="인공지능 기술이 적용되면 어떤 점이 편리해지는지 자유롭게 적어보세요."></textarea>
+                <td class="text-cell">
+                    <textarea id="inputDesc" class="text-input-area" placeholder="인공지능 기술이 적용되면 어떤 점이 편리해지는지 자유롭게 적어보세요."></textarea>
                 </td>
             </tr>
         </tbody>
     </table>
 
-</div>
-
-<!-- 제출 버튼 -->
-<div class="submit-container">
-    <button class="btn-submit" id="submit-btn" onclick="submitWorksheet()">🚀 선생님께 제출하기</button>
+    <div class="action-bar">
+        <button type="button" class="submit-btn" onclick="submitData()">구글 스프레드시트로 제출하기</button>
+    </div>
 </div>
 
 <script>
-    // ⚠️ Google Apps Script 웹앱 URL
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/1mTS0gauwxTWBgbZQcjm0nAuN3NSjQKjvPVjXdEc43K_dhZXf-c-hs35k/1";
+    // ⚠️ 아래에 복사한 구글 앱스 크립트 웹앱 URL을 넣으세요.
+    const GAS_URL = "https://script.google.com/macros/library/d/1mTS0gauwxTWBgbZQcjm0nAuN3NSjQKjvPVjXdEc43K_dhZXf-c-hs35k/1";
 
-    const canvas = document.getElementById('draw-canvas');
+    const canvas = document.getElementById('drawingCanvas');
     const ctx = canvas.getContext('2d');
-    let isDrawing = false, mode = 'pen', penColor = '#000000';
+    let isDrawing = false;
+    let currentMode = 'pen';
+    let currentColor = '#000000';
 
-    // 캔버스 크기 해상도 자동 맞춤
-    function resizeCanvas() {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-        ctx.lineWidth = 3; 
-        ctx.lineCap = 'round'; 
-        ctx.lineJoin = 'round';
-    }
-    
-    window.addEventListener('load', resizeCanvas);
+    window.onload = function() {
+        // 백그라운드 흰색 채우기
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    function setMode(newMode) {
-        mode = newMode;
-        document.getElementById('btn-pen').classList.toggle('active', mode === 'pen');
-        document.getElementById('btn-eraser').classList.toggle('active', mode === 'eraser');
-    }
+        // 터치 및 마우스 이벤트
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: touch.clientX, clientY: touch.clientY }));
+        }, { passive: false });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            canvas.dispatchEvent(new MouseEvent('mousemove', { clientX: touch.clientX, clientY: touch.clientY }));
+        }, { passive: false });
+
+        canvas.addEventListener('touchend', stopDrawing);
+    };
 
     function getPos(e) {
         const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        return { x: clientX - rect.left, y: clientY - rect.top };
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
     }
 
-    function startDrawing(e) { isDrawing = true; const pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); }
+    function startDrawing(e) {
+        isDrawing = true;
+        const pos = getPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+    }
+
     function draw(e) {
-        if (!isDrawing) return; e.preventDefault(); const pos = getPos(e);
-        ctx.globalCompositeOperation = (mode === 'pen') ? 'source-over' : 'destination-out';
-        ctx.strokeStyle = penColor; 
-        ctx.lineWidth = (mode === 'pen') ? 3 : 20;
-        ctx.lineTo(pos.x, pos.y); 
-        ctx.stroke();
+        if (!isDrawing) return;
+        const pos = getPos(e);
+
+        if (currentMode === 'pen') {
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.strokeStyle = currentColor;
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        } else {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineWidth = 18;
+            ctx.lineCap = 'round';
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+        }
     }
-    function stopDrawing() { isDrawing = false; }
-    function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
-    canvas.addEventListener('mousedown', startDrawing); canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing); canvas.addEventListener('mouseleave', stopDrawing);
-    canvas.addEventListener('touchstart', startDrawing); canvas.addEventListener('touchmove', draw); canvas.addEventListener('touchend', stopDrawing);
+    function stopDrawing() {
+        if (isDrawing) {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+    }
 
-    async function submitWorksheet() {
-        const name = document.getElementById('name-input').value.trim();
-        const grade = document.getElementById('grade-input').value.trim();
-        const className = document.getElementById('class-input').value.trim();
+    function setMode(mode) {
+        currentMode = mode;
+        document.querySelector('.pen-btn').classList.toggle('active', mode === 'pen');
+        document.querySelector('.eraser-btn').classList.toggle('active', mode === 'eraser');
+    }
+
+    function changeColor(color) {
+        currentColor = color;
+        setMode('pen');
+    }
+
+    function clearCanvas() {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function submitData() {
+        const school = document.getElementById('school').value.trim();
+        const grade = document.getElementById('grade').value.trim();
+        const classNum = document.getElementById('classNum').value.trim();
+        const name = document.getElementById('name').value.trim();
+        const tech = document.getElementById('inputTech').value.trim();
+        const desc = document.getElementById('inputDesc').value.trim();
 
         if (!name) {
-            alert("이름을 입력한 후 제출해 주세요!");
+            alert("이름을 입력해주세요!");
             return;
         }
 
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.innerText = "⏳ 선생님께 제출 중...";
-
-        try {
-            const target = document.getElementById('capture-area');
-            const capturedCanvas = await html2canvas(target, { scale: 2, useCORS: true });
-            const imageBase64 = capturedCanvas.toDataURL('image/png').split(',')[1];
-
-            const payload = {
-                school: document.getElementById('school-input').value,
-                grade: grade,
-                className: className,
-                name: name,
-                image: imageBase64
-            };
-
-            await fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            alert("🎉 성공적으로 제출되었습니다!");
-            btn.innerText = "✅ 제출 완료됨";
-        } catch (error) {
-            console.error(error);
-            alert("제출 중 오류가 발생했습니다.");
-            btn.disabled = false;
-            btn.innerText = "🚀 선생님께 제출하기";
+        if (GAS_URL === "YOUR_GAS_WEB_APP_URL_HERE" || !GAS_URL) {
+            alert("스프레드시트 연동 URL이 설정되지 않았습니다. 코드 내부의 GAS_URL 값을 확인해 주세요.");
+            return;
         }
+
+        const drawingData = canvas.toDataURL('image/png');
+
+        const payload = {
+            school: school,
+            grade: grade,
+            classNum: classNum,
+            name: name,
+            drawing: drawingData,
+            tech: tech,
+            desc: desc
+        };
+
+        const btn = document.querySelector('.submit-btn');
+        btn.innerText = "제출 중...";
+        btn.disabled = true;
+
+        fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            alert("선생님께 성공적으로 제출되었습니다!");
+            btn.innerText = "제출 완료";
+        })
+        .catch(err => {
+            console.error(err);
+            alert("제출 중 오류가 발생했습니다.");
+            btn.innerText = "구글 스프레드시트로 제출하기";
+            btn.disabled = false;
+        });
     }
 </script>
 
